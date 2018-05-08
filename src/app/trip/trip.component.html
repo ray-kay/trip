@@ -1,0 +1,49 @@
+<h4>{{ tripTitle }}</h4>
+
+<input places-auto-complete (place_changed)="autoCompleteResult($event)" [types]="['geocode']" />
+
+<ngui-map [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
+
+  <marker *ngIf="marker && marker.position" [position]="marker.position" [draggable]="true"
+          (click)="toggleInfoWindow($event)" (dragend)="marker.position = $event.latLng"></marker>
+  <info-window id="markerInfoWindow">
+    <div *ngIf="marker">
+      <div>
+        {{ marker.title }}
+      </div>
+      <button (click)="addDestination(marker.position.lat(), marker.position.lng())">Add</button>
+    </div>
+  </info-window>
+
+  <info-window id="destinationInfoWindow">
+    <div *ngIf="activeDestination">
+      <div>
+        {{ activeDestinationIndex + 1}}
+      </div>
+      <button (click)="removeDestination(activeDestinationIndex)">Remove</button>
+      <button *ngIf="activeDestinationIndex > 0" (click)="changeDestinationPosition(activeDestinationIndex, activeDestinationIndex - 1)">Move prev</button>
+      <button *ngIf="destinations.length > 1 && activeDestinationIndex < (destinations.length - 1)" (click)="changeDestinationPosition(activeDestinationIndex, activeDestinationIndex + 1)">Move next</button>
+    </div>
+  </info-window>
+
+  <marker *ngFor="let destination of destinations; let i = index"
+          [position]="[destination.lat, destination.lng]"
+          (click)="clickDestinationMarker($event, i)"
+          [draggable]="true"
+          [label]="'&nbsp;' + ((i + 1).toString()) + '&nbsp;'"
+          (dragend)="destinationMarkerDragEnd($event, i)"
+          [icon]="{
+            url: '/assets/images/map/destination-marker.png',
+            anchor: [14, 43],
+            size: [27, 43],
+            scaledSize: [27, 43],
+            labelOrigin: [14, 15]
+          }"></marker>
+
+  <directions-renderer *ngFor="let destination of (destinations | destinationsDirection)"
+                       [suppressMarkers]="true"
+                       [draggable]="true"
+                       [directions-request]="destination.directionsRequest">
+  </directions-renderer>
+
+</ngui-map>
