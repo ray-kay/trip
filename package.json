@@ -1,10 +1,12 @@
 {
   "name": "trip",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
+    "start-http-server": "http-server ./dist/trip -p 8082 -o",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -19,7 +21,11 @@
     "@angular/http": "^6.0.0",
     "@angular/platform-browser": "^6.0.0",
     "@angular/platform-browser-dynamic": "^6.0.0",
+    "@angular/pwa": "^0.6.0",
     "@angular/router": "^6.0.0",
+    "@angular/service-worker": "^6.0.0",
+    "@ngui/map": "^0.30.0",
+    "@types/googlemaps": "^3.30.8",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
