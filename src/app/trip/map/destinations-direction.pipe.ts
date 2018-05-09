@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Destination } from '../shared/model/destination';
+import { Destination } from '../../shared/model/destination';
 
 @Pipe({
   name: 'destinationsDirection',
