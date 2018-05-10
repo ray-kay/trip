@@ -1,0 +1,18 @@
+{
+  "title": "My new trip",
+  "destinations": [{
+    "lat": -33.89440625978433,
+    "lng": 151.21222767700192,
+    "title": "",
+    "fullAddress": "",
+    "showDirection": true,
+    "travelMode": "DRIVING"
+  }, {
+    "lat": -33.87,
+    "lng": 151.25,
+    "title": "",
+    "fullAddress": "",
+    "showDirection": true,
+    "travelMode": "DRIVING"
+  }]
+}

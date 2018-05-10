@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">Menu</mat-toolbar>
+
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Where is your next stop?" places-auto-complete [types]="['geocode']" (place_changed)="autoCompleteResult($event)">
+</mat-form-field>
+
+<mat-nav-list *ngIf="trip">
+  <div mat-list-item *ngFor="let destination of trip.destinations; let i = index">
+    Stop {{i + 1}} {{destination.title || destination.fullAddress}}
+  </div>
+</mat-nav-list>

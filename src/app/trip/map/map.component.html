@@ -1,6 +1,4 @@
-<input places-auto-complete (place_changed)="autoCompleteResult($event)" [types]="['geocode']" />
-
-<ngui-map [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
+<ngui-map *ngIf="trip" [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
 
   <marker *ngIf="marker && marker.position" [position]="marker.position" [draggable]="true"
           (click)="toggleInfoWindow($event)" (dragend)="marker.position = $event.latLng"></marker>
@@ -19,8 +17,8 @@
         {{ activeDestinationIndex + 1}}
       </div>
       <button (click)="removeDestination(activeDestinationIndex)">Remove</button>
-      <button *ngIf="activeDestinationIndex > 0" (click)="changeDestinationPosition(activeDestinationIndex, activeDestinationIndex - 1)">Move prev</button>
-      <button *ngIf="trip.destinations.length > 1 && activeDestinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationPosition(activeDestinationIndex, activeDestinationIndex + 1)">Move next</button>
+      <button *ngIf="activeDestinationIndex > 0" (click)="changeDestinationOrder(activeDestinationIndex, activeDestinationIndex - 1)">Move prev</button>
+      <button *ngIf="trip.destinations.length > 1 && activeDestinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationOrder(activeDestinationIndex, activeDestinationIndex + 1)">Move next</button>
     </div>
   </info-window>
 

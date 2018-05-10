@@ -1,2 +1,16 @@
-<app-trip-nav [trip]="trip"></app-trip-nav>
-<app-trip-map [trip]="trip"></app-trip-map>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sideNav
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+    <app-trip-side-nav></app-trip-side-nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-trip-toolbar [sideNav]="sideNav"></app-trip-toolbar>
+    <app-trip-map></app-trip-map>
+  </mat-sidenav-content>
+</mat-sidenav-container>

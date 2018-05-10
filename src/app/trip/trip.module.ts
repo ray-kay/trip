@@ -1,16 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 import {environment} from '../../environments/environment';
 
-import { TripComponent } from './trip.component';
-import { DestinationsDirectionPipe } from './map/destinations-direction.pipe';
+import {TripComponent} from './trip.component';
+import {DestinationsDirectionPipe} from './map/destinations-direction.pipe';
 
-import { NguiMapModule} from '@ngui/map/dist';
-import { NavComponent } from './nav/nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
-import { MapComponent } from './map/map.component';
+import {NguiMapModule} from '@ngui/map/dist';
+import {SideNavComponent} from './side-nav/side-nav.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
+import {MapComponent} from './map/map.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
 
 @NgModule({
   imports: [
@@ -21,8 +30,11 @@ import { MapComponent } from './map/map.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
-  declarations: [TripComponent, DestinationsDirectionPipe, NavComponent, MapComponent]
+  declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent]
 })
-export class TripModule { }
+export class TripModule {
+}

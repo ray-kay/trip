@@ -3,6 +3,7 @@ import { Destination } from '../../shared/model/destination';
 import { Helpers } from '../../shared/helpers';
 import {DirectionsRenderer, NguiMapComponent} from '@ngui/map/dist';
 import {Trip} from '../../shared/model/trip';
+import {TripService} from '../trip.service';
 
 @Component({
   selector: 'app-trip-map',
@@ -11,29 +12,27 @@ import {Trip} from '../../shared/model/trip';
 })
 export class MapComponent implements OnInit {
 
-  @Input() trip: Trip;
+  trip: Trip;
 
   @ViewChild(NguiMapComponent) nguiMapComponent: NguiMapComponent;
   @ViewChild(DirectionsRenderer) directionsRendererDirective: DirectionsRenderer;
-  geocoder: google.maps.Geocoder;
+  // geocoder: google.maps.Geocoder;
   activeDestination: Destination; // selected destination pin
   activeDestinationIndex: number;
   center: google.maps.LatLng;
   infoWindowShown = false;
   marker: any; // = { title: null, position: null} // { lat: null, lng: null };
-  destinationChangeInProgress = false;
 
-  constructor() { }
+  constructor(private tripService: TripService) { }
 
   ngOnInit() {
+    this.tripService.tripLoaded.subscribe( (trip: Trip) => {
+      this.trip = trip;
+    });
   }
 
   onMapReady(map) {
-    this.geocoder = new google.maps.Geocoder();
-
-    // add directions here as only then we have google available - TODO test data
-    this.addDestination(-33.89440625978433, 151.21222767700192);
-    this.addDestination(-33.87, 151.25);
+    // this.geocoder = new google.maps.Geocoder();
   }
 
   clickOnMap(event) {
@@ -66,13 +65,12 @@ export class MapComponent implements OnInit {
       lng: lng,
       title: title || '',
       fullAddress: '',
-      showDirection: true
+      showDirection: true,
+      travelMode: google.maps.TravelMode.DRIVING
     };
 
+    this.tripService.addDestination(destination);
     this.resetCurrentMarker();
-    const destinations: Destination[] = Object.assign([], this.trip.destinations);
-    destinations.push(destination);
-    this.trip.destinations = destinations;
   }
 
   clickDestinationMarker({target: marker}, destinationIndex: number) {
@@ -82,32 +80,15 @@ export class MapComponent implements OnInit {
   }
 
   destinationMarkerDragEnd(event, destinationIndex: number) {
-    const destinations: Destination[] = Object.assign([], this.trip.destinations);
-    const destination: Destination = Object.assign({}, destinations[destinationIndex]);
-    destination.lat = event.latLng.lat();
-    destination.lng = event.latLng.lng();
-    destinations[destinationIndex] = destination;
-
-    this.trip.destinations = destinations;
+    this.tripService.updateDestinationPosition(destinationIndex, event.latLng.lat(), event.latLng.lng());
   }
 
   removeDestination(destinationIndex: number) {
-    const destinations: Destination[] = Object.assign([], this.trip.destinations);
-    destinations.splice(destinationIndex, 1);
-    this.trip.destinations = destinations;
+    this.tripService.deleteDestination(destinationIndex);
   }
 
-  changeDestinationPosition(destinationIndex: number, newIndex: number) {
-    if (!this.destinationChangeInProgress) {
-      this.destinationChangeInProgress = true;
-      const destinations: Destination[] = Object.assign([], this.trip.destinations);
-      Helpers.moveArrayElement(destinations, destinationIndex, newIndex);
-      this.trip.destinations = destinations;
-
-      setTimeout(() => {
-        this.destinationChangeInProgress = false;
-      }, 300);
-    }
+  changeDestinationOrder(destinationIndex: number, newIndex: number) {
+    this.tripService.changeDestinationOrder(destinationIndex, newIndex);
   }
 
   private resetCurrentMarker() {

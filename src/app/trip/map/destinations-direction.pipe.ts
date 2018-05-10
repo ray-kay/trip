@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Destination } from '../../shared/model/destination';
+import { Destination} from '../../shared/model/destination';
 
 @Pipe({
   name: 'destinationsDirection',
@@ -14,7 +14,7 @@ export class DestinationsDirectionPipe implements PipeTransform {
         destination.directionsRequest = {
           origin: { lat: array[index - 1].lat, lng: array[index - 1].lng },
           destination: { lat: destination.lat, lng: destination.lng },
-          travelMode: google.maps.TravelMode.DRIVING
+          travelMode: destination.travelMode
         };
         return true;
       }

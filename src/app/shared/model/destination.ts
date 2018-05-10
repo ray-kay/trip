@@ -5,5 +5,6 @@ export class Destination {
   fullAddress?: string;
   showDirection?: boolean;
   directionsRequest?: google.maps.DirectionsRequest;
+  travelMode?: google.maps.TravelMode;
   directionOptions?: google.maps.DirectionsRendererOptions;
 }
