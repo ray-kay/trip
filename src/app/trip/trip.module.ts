@@ -20,6 +20,7 @@ import {
 } from '@angular/material';
 import {MapComponent} from './map/map.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
+import { DestinationListComponent } from './destination-list/destination-list.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import {ToolbarComponent} from './toolbar/toolbar.component';
     MatFormFieldModule,
     MatInputModule
   ],
-  declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent]
+  declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent, DestinationListComponent]
 })
 export class TripModule {
 }

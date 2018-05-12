@@ -1,0 +1,14 @@
+<mat-selection-list *ngIf="trip" role="listbox" (selectionChange)="destinationSelected($event.option)">
+  <h3 matSubheader>Stops</h3>
+  <mat-list-option *ngFor="let destination of trip.destinations; let i = index" [value]="i"
+                   [selected]="i === activeDestinationIndex">
+    <h3 matLine>
+      <span class="destination-marker" title="{{'Stop '+(i + 1) }}">{{ i + 1 }}</span>
+      {{ destination.title || 'Stop '+(i + 1) }}
+    </h3>
+    <p matLine *ngIf="destination.fullAddress">{{ destination.fullAddress }}</p>
+
+  </mat-list-option>
+  <mat-divider></mat-divider>
+  <h3 matSubheader>Notes</h3>
+</mat-selection-list>

@@ -18,6 +18,9 @@ export class TripService {
   private destinationChangeInProgress = false;
 
   @Output() tripLoaded: EventEmitter<Trip> = new EventEmitter();
+  @Output() destinationSelected: EventEmitter<number> = new EventEmitter();
+  @Output() destinationDeleted: EventEmitter<number> = new EventEmitter();
+  @Output() destinationOrderChanged: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -33,6 +36,10 @@ export class TripService {
       );
   }
 
+  selectDestination(index: number) {
+    this.destinationSelected.emit(index);
+  }
+
   addDestination(destination: Destination) {
     const destinations: Destination[] = Object.assign([], this.trip.destinations);
     destinations.push(destination);
@@ -43,26 +50,24 @@ export class TripService {
     const destinations: Destination[] = Object.assign([], this.trip.destinations);
     destinations.splice(destinationIndex, 1);
     this.trip.destinations = destinations;
+    this.destinationDeleted.emit(destinationIndex);
   }
 
   changeDestinationOrder(destinationIndex: number, newIndex: number) {
     if (!this.destinationChangeInProgress) {
       this.destinationChangeInProgress = true;
-      const destinations: Destination[] = Object.assign([], this.trip.destinations);
-      Helpers.moveArrayElement(destinations, destinationIndex, newIndex);
-      this.trip.destinations = destinations;
+      this.trip.destinations = Helpers.moveArrayElement(Object.assign([], this.trip.destinations), destinationIndex, newIndex);
 
       setTimeout(() => {
         this.destinationChangeInProgress = false;
       }, 300);
+      this.destinationOrderChanged.emit({index: destinationIndex, newIndex: newIndex});
     }
   }
 
-  updateDestinationPosition(destinationIndex: number, lat, lng): Destination {
+  updateDestination(destinationIndex: number, updatedDestination: Destination): Destination {
     const destinations: Destination[] = Object.assign([], this.trip.destinations);
-    const destination: Destination = Object.assign({}, destinations[destinationIndex]);
-    destination.lat = lat;
-    destination.lng = lng;
+    const destination: Destination = Object.assign({}, updatedDestination);
     destinations[destinationIndex] = destination;
     this.trip.destinations = destinations;
 
