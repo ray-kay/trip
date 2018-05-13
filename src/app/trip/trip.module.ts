@@ -16,11 +16,15 @@ import {
   MatIconModule,
   MatListModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatButtonToggleModule,
+  MatExpansionModule
 } from '@angular/material';
 import {MapComponent} from './map/map.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import { DestinationListComponent } from './destination-list/destination-list.component';
+import { ButtonTravelModeComponent } from './button-travel-mode/button-travel-mode.component';
+import { MapDestinationPanelComponent } from './map-destination-panel/map-destination-panel.component';
 
 @NgModule({
   imports: [
@@ -33,9 +37,15 @@ import { DestinationListComponent } from './destination-list/destination-list.co
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonToggleModule,
+    MatExpansionModule
   ],
-  declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent, DestinationListComponent]
+  entryComponents: [],
+  declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent, DestinationListComponent,
+    ButtonTravelModeComponent,
+    MapDestinationPanelComponent],
+  bootstrap: [],
 })
 export class TripModule {
 }

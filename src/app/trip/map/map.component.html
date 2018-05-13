@@ -1,9 +1,9 @@
 <ngui-map *ngIf="trip" [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
 
-  <marker *ngIf="marker && marker.position" [position]="marker.position" [draggable]="true"
+  <marker *ngIf="marker" [position]="{lat: marker.lat, lng: marker.lng}" [draggable]="true"
           (click)="toggleInfoWindow($event)" (dragend)="markerDragEnd($event)"></marker>
   <info-window id="markerInfoWindow" (closeclick)="infoWindowShown = false">
-    <div *ngIf="marker">
+    <div *ngIf="marker && infoWindowShown">
       <div>
         {{ marker.title }} <br/> {{ marker.fullAddress }}
       </div>
@@ -38,10 +38,12 @@
             labelOrigin: [14, 15]
           }"></marker>
 
-  <directions-renderer *ngFor="let destination of (trip.destinations | destinationsDirection)"
-                       [suppressMarkers]="true"
-                       [draggable]="true"
-                       [directions-request]="destination.directionsRequest">
-  </directions-renderer>
+  <div *ngIf="mapReady">
+    <directions-renderer *ngFor="let destination of (trip.destinations | destinationsDirection: mapReady)"
+                         [suppressMarkers]="true"
+                         [draggable]="true"
+                         [directions-request]="destination.directionsRequest">
+    </directions-renderer>
+  </div>
 
 </ngui-map>

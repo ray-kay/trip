@@ -1,0 +1,24 @@
+<mat-button-toggle-group name="travelMode" aria-label="Travel Mode" [value]="travelModeValue" (valueChange)="update($event)">
+  <mat-button-toggle value="DRIVING" aria-label="By Car">
+    <mat-icon>directions_car</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="TRANSIT" aria-label="Public Transport" [checked]="travelModeValue == 'TRANSIT'">
+    <mat-icon>directions_bus</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="WALKING" aria-label="Walking">
+    <mat-icon>directions_walk</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="BICYCLING" aria-label="By Bike">
+    <mat-icon>directions_bike</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="BOAT" aria-label="By Boat">
+    <mat-icon>directions_boat</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="FLYING" aria-label="By Plane">
+    <mat-icon>flight</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle value="NONE" aria-label="Don`t show directions">
+    <mat-icon>close</mat-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+

@@ -1,7 +1,6 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container>
   <mat-sidenav
     #sideNav
-    class="sidenav"
     fixedInViewport="true"
     [attr.role]="isHandset ? 'dialog' : 'navigation'"
     [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
@@ -12,5 +11,6 @@
   <mat-sidenav-content>
     <app-trip-toolbar [sideNav]="sideNav"></app-trip-toolbar>
     <app-trip-map></app-trip-map>
+    <app-trip-map-destination-panel></app-trip-map-destination-panel>
   </mat-sidenav-content>
 </mat-sidenav-container>

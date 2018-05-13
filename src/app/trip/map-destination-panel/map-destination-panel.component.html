@@ -1,0 +1,18 @@
+<mat-accordion *ngIf="destination">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ destination.title }}</mat-panel-title>
+      <mat-panel-description>{{ destination.fullAddress }}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-trip-button-travel-mode [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
+    <br/>
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,11 +1,9 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import { Destination } from '../../shared/model/destination';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { Destination, DestinationTravelMode } from '../../shared/model/destination';
 import { Helpers } from '../../shared/helpers';
 import {DirectionsRenderer, NguiMapComponent} from '@ngui/map/dist';
 import {Trip} from '../../shared/model/trip';
 import {TripService} from '../trip.service';
-import {catchError, map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 import GeocoderResult = google.maps.GeocoderResult;
 
 @Component({
@@ -24,8 +22,11 @@ export class MapComponent implements OnInit {
   activeDestinationIndex: number;
   center: google.maps.LatLng;
   infoWindowShown = false;
-  marker: any; // = { title: null, position: null} // { lat: null, lng: null };
+  marker: Destination; // = { title: null, position: null} // { lat: null, lng: null };
   destinationMarkers: any[] = [];
+  mapReady = false
+
+  private lastTravelMode: DestinationTravelMode = DestinationTravelMode.DRIVING;
 
   constructor(private tripService: TripService) { }
 
@@ -52,6 +53,7 @@ export class MapComponent implements OnInit {
   }
 
   onMapReady(map) {
+    this.mapReady = true;
     this.geocoder = new google.maps.Geocoder();
   }
 
@@ -91,26 +93,29 @@ export class MapComponent implements OnInit {
   }
 
   markerDragEnd(marker) {
-    this.marker.position = marker.latLng;
+    this.marker.lat = marker.latLng.lat();
+    this.marker.lng = marker.latLng.lng();
 
     if (this.infoWindowShown) {
       const self = this;
-      this.resolveLocation(marker.latLng.lat(), marker.latLng.lng()).then(function (results: GeocoderResult[]) {
+      this.resolveLocation(this.marker.lat, this.marker.lng).then(function (results: GeocoderResult[]) {
         self.marker.fullAddress = results[0].formatted_address;
         self.marker.title = results[0].address_components[1].short_name;
       });
     }
   }
 
-  addMarkerToDestination(marker) {
+  addMarkerToDestination(marker: Destination) {
     const destination: Destination = {
-      lat: marker.position.lat(),
-      lng: marker.position.lng(),
+      lat: marker.lat,
+      lng: marker.lng,
       title: marker.title,
       fullAddress: marker.fullAddress,
       showDirection: true,
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: marker.travelMode || DestinationTravelMode.DRIVING
     };
+
+    this.lastTravelMode = destination.travelMode;
 
     this.tripService.addDestination(destination);
     this.resetCurrentMarker();
@@ -125,6 +130,7 @@ export class MapComponent implements OnInit {
   }
 
   destinationMarkerDragEnd(event, index: number) {
+    this.resetCurrentMarker();
     this.infoWindowShown = false;
     const destination = this.trip.destinations[index];
     destination.lat = event.latLng.lat();
@@ -155,8 +161,10 @@ export class MapComponent implements OnInit {
 
   private addSearchLocationMarker(latLng: google.maps.LatLng, title?: string) {
     this.marker = {
-      position: latLng,
-      title: title
+      lat: latLng.lat(),
+      lng: latLng.lng(),
+      title: title,
+      travelMode: this.lastTravelMode
     };
 
     if (this.infoWindowShown) {
