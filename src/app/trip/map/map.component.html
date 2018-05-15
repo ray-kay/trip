@@ -1,27 +1,7 @@
 <ngui-map *ngIf="trip" [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
 
   <marker *ngIf="marker" [position]="{lat: marker.lat, lng: marker.lng}" [draggable]="true"
-          (click)="toggleInfoWindow($event)" (dragend)="markerDragEnd($event)"></marker>
-  <info-window id="markerInfoWindow" (closeclick)="infoWindowShown = false">
-    <div *ngIf="marker && infoWindowShown">
-      <div>
-        {{ marker.title }} <br/> {{ marker.fullAddress }}
-      </div>
-      <button (click)="addMarkerToDestination(marker)">Add</button>
-    </div>
-  </info-window>
-
-  <info-window id="destinationInfoWindow">
-    <div *ngIf="activeDestination">
-      <div>
-        {{ activeDestination.title || 'Stop ' + (activeDestinationIndex + 1) }}
-        <br/> {{ activeDestination.fullAddress }}
-      </div>
-      <button (click)="removeDestination(activeDestinationIndex)">Remove</button>
-      <button *ngIf="activeDestinationIndex > 0" (click)="changeDestinationOrder(activeDestinationIndex, activeDestinationIndex - 1)">Move prev</button>
-      <button *ngIf="trip.destinations.length > 1 && activeDestinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationOrder(activeDestinationIndex, activeDestinationIndex + 1)">Move next</button>
-    </div>
-  </info-window>
+          (dragend)="markerDragEnd($event)"></marker>
 
   <marker *ngFor="let destination of trip.destinations; let i = index"
           [position]="[destination.lat, destination.lng]"

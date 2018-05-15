@@ -2,4 +2,8 @@
   position: absolute;
   bottom: 0px;
   width: 100%;
+
+  .mat-primary, .mat-warn {
+    float: right;
+  }
 }

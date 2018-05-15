@@ -1,18 +1,25 @@
 <mat-accordion *ngIf="destination">
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title>{{ destination.title }}</mat-panel-title>
+      <mat-panel-title>
+        <mat-form-field>
+          <input type="text" name="title" matInput placeholder="Title" [(ngModel)]="destination.title" required>
+          <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+      </mat-panel-title>
       <mat-panel-description>{{ destination.fullAddress }}</mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-trip-button-travel-mode [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
-    <br/>
-    <mat-form-field>
-      <input matInput placeholder="First name">
-    </mat-form-field>
+    <app-trip-button-travel-mode *ngIf="newDestination || destinationIndex > 0" (change)="destination.travelMode = $event" [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
+    <button mat-icon-button *ngIf="!newDestination && destinationIndex > 0" (click)="changeDestinationOrder(destinationIndex - 1)">
+      <mat-icon aria-label="Move prev">navigate_before</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="!newDestination && destinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationOrder(destinationIndex + 1)">
+      <mat-icon aria-label="Move next">navigate_next</mat-icon>
+    </button>
 
-    <mat-form-field>
-      <input matInput placeholder="Age">
-    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="saveDestination()">Save</button>
+    <button *ngIf="!newDestination" mat-button color="warn" (click)="removeDestination()">Remove</button>
+
   </mat-expansion-panel>
 </mat-accordion>

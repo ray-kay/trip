@@ -19,8 +19,10 @@ export class TripService {
 
   @Output() tripLoaded: EventEmitter<Trip> = new EventEmitter();
   @Output() destinationSelected: EventEmitter<number> = new EventEmitter();
+  @Output() destinationAdded: EventEmitter<Destination> = new EventEmitter();
   @Output() destinationDeleted: EventEmitter<number> = new EventEmitter();
   @Output() destinationOrderChanged: EventEmitter<any> = new EventEmitter();
+  @Output() mapMarkerUpdated: EventEmitter<Destination> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -40,10 +42,15 @@ export class TripService {
     this.destinationSelected.emit(index);
   }
 
+  updateMapMarker(destination: Destination) {
+    this.mapMarkerUpdated.emit(destination);
+  }
+
   addDestination(destination: Destination) {
     const destinations: Destination[] = Object.assign([], this.trip.destinations);
     destinations.push(destination);
     this.trip.destinations = destinations;
+    this.destinationAdded.emit(destination);
   }
 
   deleteDestination(destinationIndex: number) {

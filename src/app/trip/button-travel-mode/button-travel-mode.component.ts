@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {DestinationTravelMode} from '../../shared/model/destination';
 
 @Component({
@@ -9,14 +9,11 @@ import {DestinationTravelMode} from '../../shared/model/destination';
 export class ButtonTravelModeComponent implements OnInit {
 
   @Input() travelModeValue: DestinationTravelMode = DestinationTravelMode.NONE;
+  @Output('change') changeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  update(event) {
-    console.log('update', event);
   }
 
 }

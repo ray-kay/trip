@@ -3,10 +3,10 @@ export class Destination {
   lng: number;
   title?: string;
   fullAddress?: string;
-  showDirection?: boolean;
   directionsRequest?: google.maps.DirectionsRequest;
   travelMode?: DestinationTravelMode;
   directionOptions?: google.maps.DirectionsRendererOptions;
+  geocoderResult?: google.maps.GeocoderResult;
 }
 
 export enum DestinationTravelMode {

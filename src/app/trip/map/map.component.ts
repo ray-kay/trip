@@ -18,13 +18,11 @@ export class MapComponent implements OnInit {
   @ViewChild(NguiMapComponent) nguiMapComponent: NguiMapComponent;
   @ViewChild(DirectionsRenderer) directionsRendererDirective: DirectionsRenderer;
   geocoder: google.maps.Geocoder;
-  activeDestination: Destination; // selected destination pin
   activeDestinationIndex: number;
   center: google.maps.LatLng;
-  infoWindowShown = false;
   marker: Destination; // = { title: null, position: null} // { lat: null, lng: null };
   destinationMarkers: any[] = [];
-  mapReady = false
+  mapReady = false;
 
   private lastTravelMode: DestinationTravelMode = DestinationTravelMode.DRIVING;
 
@@ -40,6 +38,9 @@ export class MapComponent implements OnInit {
       if (index !== this.activeDestinationIndex) {
         this.clickDestinationMarker(this.destinationMarkers[index], index);
       }
+    });
+    this.tripService.destinationAdded.subscribe( (destination: Destination) => {
+      this.resetCurrentMarker();
     });
     this.tripService.destinationDeleted.subscribe( (index: number) => {
       const destinationMarkers: any[] = Object.assign([], this.destinationMarkers);
@@ -65,8 +66,6 @@ export class MapComponent implements OnInit {
     if (event instanceof MouseEvent) {
       return false;
     }
-    // aways close info window for destination markers
-    this.nguiMapComponent.closeInfoWindow('destinationInfoWindow');
     this.addSearchLocationMarker(event.latLng);
   }
 
@@ -75,63 +74,24 @@ export class MapComponent implements OnInit {
     this.addSearchLocationMarker(this.center, place.formatted_address);
   }
 
-  toggleInfoWindow(marker) { // {target: marker} = event.target
-    if (!this.infoWindowShown) {
-      this.nguiMapComponent.openInfoWindow('markerInfoWindow', marker.target);
-
-      // get location data
-      const self = this;
-      this.resolveLocation(marker.latLng.lat(), marker.latLng.lng()).then(function (results: GeocoderResult[]) {
-        self.marker.fullAddress = results[0].formatted_address;
-        self.marker.title = results[0].address_components[1].short_name;
-      });
-    } else {
-      this.nguiMapComponent.closeInfoWindow('markerInfoWindow');
-    }
-
-    this.infoWindowShown = !this.infoWindowShown;
-  }
-
   markerDragEnd(marker) {
     this.marker.lat = marker.latLng.lat();
     this.marker.lng = marker.latLng.lng();
 
-    if (this.infoWindowShown) {
-      const self = this;
-      this.resolveLocation(this.marker.lat, this.marker.lng).then(function (results: GeocoderResult[]) {
-        self.marker.fullAddress = results[0].formatted_address;
-        self.marker.title = results[0].address_components[1].short_name;
-      });
-    }
-  }
-
-  addMarkerToDestination(marker: Destination) {
-    const destination: Destination = {
-      lat: marker.lat,
-      lng: marker.lng,
-      title: marker.title,
-      fullAddress: marker.fullAddress,
-      showDirection: true,
-      travelMode: marker.travelMode || DestinationTravelMode.DRIVING
-    };
-
-    this.lastTravelMode = destination.travelMode;
-
-    this.tripService.addDestination(destination);
-    this.resetCurrentMarker();
+    const self = this;
+    this.resolveLocation(this.marker.lat, this.marker.lng).then(function (results: GeocoderResult[]) {
+      Helpers.setGeoCoderResultToDestination(results[0], self.marker);
+    });
   }
 
   clickDestinationMarker(marker, index: number) {
     this.resetCurrentMarker();
-    this.activeDestination = this.trip.destinations[index];
     this.activeDestinationIndex = index;
-    this.nguiMapComponent.openInfoWindow('destinationInfoWindow', marker);
     this.tripService.selectDestination(index);
   }
 
   destinationMarkerDragEnd(event, index: number) {
     this.resetCurrentMarker();
-    this.infoWindowShown = false;
     const destination = this.trip.destinations[index];
     destination.lat = event.latLng.lat();
     destination.lng = event.latLng.lng();
@@ -140,22 +100,12 @@ export class MapComponent implements OnInit {
     // resolve location
     const self = this;
     this.resolveLocation(destination.lat, destination.lng).then(function (results: GeocoderResult[]) {
-      destination.fullAddress = results[0].formatted_address;
-      destination.title = results[0].address_components[1].short_name;
+      Helpers.setGeoCoderResultToDestination(results[0], destination);
       self.tripService.updateDestination(index, destination);
     });
   }
 
-  removeDestination(index: number) {
-    this.tripService.deleteDestination(index);
-  }
-
-  changeDestinationOrder(index: number, newIndex: number) {
-    this.tripService.changeDestinationOrder(index, newIndex);
-  }
-
   private resetCurrentMarker() {
-    this.infoWindowShown = false;
     this.marker = null;
   }
 
@@ -166,15 +116,12 @@ export class MapComponent implements OnInit {
       title: title,
       travelMode: this.lastTravelMode
     };
+    this.tripService.updateMapMarker(this.marker);
 
-    if (this.infoWindowShown) {
-      const self = this;
-      this.resolveLocation(latLng.lat(), latLng.lng()).then(function (results: GeocoderResult[]) {
-        // console.log(results[0]);
-        self.marker.fullAddress = results[0].formatted_address;
-        self.marker.title = results[0].address_components[1].short_name;
-      });
-    }
+    const self = this;
+    this.resolveLocation(latLng.lat(), latLng.lng()).then(function (results: GeocoderResult[]) {
+      Helpers.setGeoCoderResultToDestination(results[0], self.marker);
+    });
   }
 
   private resolveLocation(lat, lng): Promise<GeocoderResult[]> {

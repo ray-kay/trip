@@ -10,7 +10,7 @@ export class DestinationsDirectionPipe implements PipeTransform {
 
   transform(destinations: Destination[], googleLoaded?: boolean): any[] {
     return googleLoaded ? destinations.filter(function (destination: Destination, index: number, array: Destination[]): boolean {
-      if (destination.showDirection && index > 0) {
+      if (index > 0) {
         let travelMode: google.maps.TravelMode = null;
         switch (destination.travelMode) {
           case DestinationTravelMode.DRIVING: travelMode = google.maps.TravelMode.DRIVING; break;

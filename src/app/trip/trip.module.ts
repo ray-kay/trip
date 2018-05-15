@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import {environment} from '../../environments/environment';
 
@@ -29,6 +30,7 @@ import { MapDestinationPanelComponent } from './map-destination-panel/map-destin
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=places&key=' + environment.googleMapsApiKey}),
     LayoutModule,
     MatToolbarModule,
