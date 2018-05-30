@@ -3,8 +3,8 @@
   <mat-list-option *ngFor="let destination of trip.destinations; let i = index" [value]="i"
                    [selected]="i === activeDestinationIndex">
     <h3 matLine>
-      <span class="destination-marker" title="{{'Stop '+(i + 1) }}">{{ i + 1 }}</span>
-      {{ destination.title || 'Stop '+(i + 1) }}
+      <span class="destination-marker" title="{{ destination.title }}">{{ i + 1 }}</span>
+      {{ destination.title }}
     </h3>
     <p matLine *ngIf="destination.fullAddress">{{ destination.fullAddress }}</p>
 

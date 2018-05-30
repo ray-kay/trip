@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   geocoder: google.maps.Geocoder;
   activeDestinationIndex: number;
   center: google.maps.LatLng;
-  marker: Destination; // = { title: null, position: null} // { lat: null, lng: null };
+  marker: Destination;
   destinationMarkers: any[] = [];
   mapReady = false;
   map: google.maps.Map;
@@ -109,6 +109,11 @@ export class MapComponent implements OnInit {
     });
   }
 
+  onDirectionError(status: google.maps.DirectionsStatus, destination: Destination) {
+    destination.travelMode = DestinationTravelMode.NONE;
+    console.log('onDirectionChanged', status);
+  }
+
   private resetCurrentMarker() {
     this.marker = null;
   }
@@ -117,6 +122,7 @@ export class MapComponent implements OnInit {
     this.marker = {
       lat: latLng.lat(),
       lng: latLng.lng(),
+      title: 'Stop ' + (this.trip.destinations.length + 1),
       travelMode: this.lastTravelMode
     };
 

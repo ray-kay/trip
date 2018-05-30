@@ -10,6 +10,7 @@
       <mat-panel-description>{{ destination.fullAddress }}</mat-panel-description>
     </mat-expansion-panel-header>
 
+    <span *ngIf="destinationIndex === 0">This is where you start</span>
     <app-trip-button-travel-mode *ngIf="newDestination || destinationIndex > 0" (change)="destination.travelMode = $event" [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
     <button mat-icon-button *ngIf="!newDestination && destinationIndex > 0" (click)="changeDestinationOrder(destinationIndex - 1)">
       <mat-icon aria-label="Move prev">navigate_before</mat-icon>

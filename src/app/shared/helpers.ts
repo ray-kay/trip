@@ -20,8 +20,17 @@ export class Helpers {
 
   static setGeoCoderResultToDestination(result: google.maps.GeocoderResult, destination: Destination): Destination {
     destination.fullAddress = result.formatted_address;
-    const indexForTitle = result.types && ['premise', 'street_address'].indexOf(result.types[0]) > -1 ? 2 : 1;
-    destination.title = result.address_components[indexForTitle].short_name;
+    if (result.types) {
+      switch (true) {
+        case ['premise', 'street_address'].indexOf(result.types[0]) > -1 : // if street level take city
+          destination.title = result.address_components[2].short_name;
+          break;
+        case ['administrative_area_level_1'].indexOf(result.types[0]) === -1 && result.address_components.length > 1 :
+          // if not administrative_area_level_1 use index 1;
+          destination.title = result.address_components[1].short_name;
+          break;
+      }
+    }
 
     destination.geocoderResult = result;
     return destination;
