@@ -22,8 +22,15 @@ export class Helpers {
     destination.fullAddress = result.formatted_address;
     const indexForTitle = result.types && ['premise', 'street_address'].indexOf(result.types[0]) > -1 ? 2 : 1;
     destination.title = result.address_components[indexForTitle].short_name;
-    destination.geocoderResult = result;
 
+    destination.geocoderResult = result;
+    return destination;
+  }
+
+  static setPlaceResultToDestination(result: google.maps.places.PlaceResult, destination: Destination): Destination {
+    destination.fullAddress = result.formatted_address;
+    destination.title = result.name;
+    destination.placeResult = result;
     return destination;
   }
 }

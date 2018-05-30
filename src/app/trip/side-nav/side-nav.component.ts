@@ -17,9 +17,7 @@ export class SideNavComponent implements OnInit {
     });
   }
 
-  autoCompleteResult(place: google.maps.GeocoderResult) {
-    console.log(place);
-    // this.center = place.geometry.location;
-    // this.addSearchLocationMarker(this.center, place.formatted_address);
+  autoCompleteResult(place: google.maps.places.PlaceResult) {
+    this.tripService.addMapMarkerFromPlace(place);
   }
 }

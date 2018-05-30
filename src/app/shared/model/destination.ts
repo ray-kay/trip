@@ -7,6 +7,7 @@ export class Destination {
   travelMode?: DestinationTravelMode;
   directionOptions?: google.maps.DirectionsRendererOptions;
   geocoderResult?: google.maps.GeocoderResult;
+  placeResult?: google.maps.places.PlaceResult;
 }
 
 export enum DestinationTravelMode {

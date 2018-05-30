@@ -1,7 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 import {environment} from '../../environments/environment';
 
 import {TripComponent} from './trip.component';
@@ -27,10 +24,11 @@ import { DestinationListComponent } from './destination-list/destination-list.co
 import { ButtonTravelModeComponent } from './button-travel-mode/button-travel-mode.component';
 import { MapDestinationPanelComponent } from './map-destination-panel/map-destination-panel.component';
 
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
+    SharedModule,
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=places&key=' + environment.googleMapsApiKey}),
     LayoutModule,
     MatToolbarModule,

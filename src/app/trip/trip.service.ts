@@ -23,6 +23,7 @@ export class TripService {
   @Output() destinationDeleted: EventEmitter<number> = new EventEmitter();
   @Output() destinationOrderChanged: EventEmitter<any> = new EventEmitter();
   @Output() mapMarkerUpdated: EventEmitter<Destination> = new EventEmitter();
+  @Output() placeAddedToMap: EventEmitter<google.maps.places.PlaceResult> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -40,6 +41,10 @@ export class TripService {
 
   selectDestination(index: number) {
     this.destinationSelected.emit(index);
+  }
+
+  addMapMarkerFromPlace(place: google.maps.places.PlaceResult) {
+    this.placeAddedToMap.emit(place);
   }
 
   updateMapMarker(destination: Destination) {

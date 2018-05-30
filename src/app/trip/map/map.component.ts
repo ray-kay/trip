@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { Destination, DestinationTravelMode } from '../../shared/model/destination';
 import { Helpers } from '../../shared/helpers';
 import {DirectionsRenderer, NguiMapComponent} from '@ngui/map/dist';
@@ -9,7 +9,8 @@ import GeocoderResult = google.maps.GeocoderResult;
 @Component({
   selector: 'app-trip-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.less']
+  styleUrls: ['./map.component.less'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class MapComponent implements OnInit {
 
@@ -23,10 +24,11 @@ export class MapComponent implements OnInit {
   marker: Destination; // = { title: null, position: null} // { lat: null, lng: null };
   destinationMarkers: any[] = [];
   mapReady = false;
+  map: google.maps.Map;
 
   private lastTravelMode: DestinationTravelMode = DestinationTravelMode.DRIVING;
 
-  constructor(private tripService: TripService) { }
+  constructor(private tripService: TripService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     // subscribe to trip changes
@@ -51,9 +53,16 @@ export class MapComponent implements OnInit {
       this.destinationMarkers = Helpers.moveArrayElement(Object.assign([], this.destinationMarkers),
         orderChanged.index, orderChanged.newIndex);
     });
+    this.tripService.placeAddedToMap.subscribe( (place: google.maps.places.PlaceResult) => {
+      const latLng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+      this.addSearchLocationMarker(latLng, place);
+      this.map.panTo(latLng);
+      this.ref.detectChanges(); // as the view doesnt get updated autom. (no user interaction) we need to trigger the change manually
+    });
   }
 
   onMapReady(map) {
+    this.map = map;
     this.mapReady = true;
     this.geocoder = new google.maps.Geocoder();
   }
@@ -67,11 +76,6 @@ export class MapComponent implements OnInit {
       return false;
     }
     this.addSearchLocationMarker(event.latLng);
-  }
-
-  autoCompleteResult(place: google.maps.GeocoderResult) {
-    this.center = place.geometry.location;
-    this.addSearchLocationMarker(this.center, place.formatted_address);
   }
 
   markerDragEnd(marker) {
@@ -109,19 +113,24 @@ export class MapComponent implements OnInit {
     this.marker = null;
   }
 
-  private addSearchLocationMarker(latLng: google.maps.LatLng, title?: string) {
+  private addSearchLocationMarker(latLng: google.maps.LatLng, placeResult?: google.maps.places.PlaceResult) {
     this.marker = {
       lat: latLng.lat(),
       lng: latLng.lng(),
-      title: title,
       travelMode: this.lastTravelMode
     };
+
+    if (placeResult) {
+      Helpers.setPlaceResultToDestination(placeResult, this.marker);
+    }
     this.tripService.updateMapMarker(this.marker);
 
-    const self = this;
-    this.resolveLocation(latLng.lat(), latLng.lng()).then(function (results: GeocoderResult[]) {
-      Helpers.setGeoCoderResultToDestination(results[0], self.marker);
-    });
+    if (!placeResult) {
+      const self = this;
+      this.resolveLocation(latLng.lat(), latLng.lng()).then(function (results: GeocoderResult[]) {
+        Helpers.setGeoCoderResultToDestination(results[0], self.marker);
+      });
+    }
   }
 
   private resolveLocation(lat, lng): Promise<GeocoderResult[]> {
