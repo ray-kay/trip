@@ -9,7 +9,7 @@ import GeocoderResult = google.maps.GeocoderResult;
 @Component({
   selector: 'app-trip-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.less'],
+  styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class MapComponent implements OnInit {
@@ -39,6 +39,8 @@ export class MapComponent implements OnInit {
     this.tripService.destinationSelected.subscribe( (index: number) => {
       if (index !== this.activeDestinationIndex) {
         this.clickDestinationMarker(this.destinationMarkers[index], index);
+        const latLng = new google.maps.LatLng(this.trip.destinations[index].lat, this.trip.destinations[index].lng);
+        this.map.panTo(latLng);
       }
     });
     this.tripService.destinationAdded.subscribe( (destination: Destination) => {
@@ -69,6 +71,13 @@ export class MapComponent implements OnInit {
 
   destinationMarkerInit(marker, index: number) {
     this.destinationMarkers[index] = marker;
+/*
+    if (this.trip.destinations.length > 0 && index === (this.trip.destinations.length - 1)) {
+      const self = this;
+      window.setTimeout(function () { // TODO not perfect
+        self.map.fitBounds(self.getBounds());
+      }, 3000);
+    }*/
   }
 
   clickOnMap(event) {
@@ -110,8 +119,17 @@ export class MapComponent implements OnInit {
   }
 
   onDirectionError(status: google.maps.DirectionsStatus, destination: Destination) {
+    let index = null;
+    for (let i = 0; i < this.trip.destinations.length; i++) {
+      if (this.trip.destinations[i] === destination) {
+        index = i;
+        break;
+      }
+    }
     destination.travelMode = DestinationTravelMode.NONE;
-    console.log('onDirectionChanged', status);
+    if(index !== null) {
+      this.tripService.updateDestination(index, destination);
+    }
   }
 
   private resetCurrentMarker() {
@@ -149,5 +167,15 @@ export class MapComponent implements OnInit {
         }
       });
     });
+  }
+
+  private getBounds() {
+    const bounds = new google.maps.LatLngBounds();
+
+    this.trip.destinations.forEach(function(destination: Destination, index) {
+      bounds.extend(new google.maps.LatLng(destination.lat, destination.lng));
+    });
+
+    return bounds;
   }
 }

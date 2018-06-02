@@ -1,4 +1,16 @@
-<mat-toolbar color="primary">Menu</mat-toolbar>
+<mat-toolbar color="primary">
+  <span>Menu</span>
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <button
+    type="button"
+    aria-label="Hide menu"
+    mat-icon-button
+    (click)="sideNav.toggle()"
+    *ngIf="!(isHandset | async)!.matches">
+    <mat-icon aria-label="Hide menu">close</mat-icon>
+  </button>
+</mat-toolbar>
 
 <mat-form-field class="example-full-width">
   <input matInput placeholder="Where is your next stop?" places-auto-complete [types]="['geocode']" (place_changed)="autoCompleteResult($event)">

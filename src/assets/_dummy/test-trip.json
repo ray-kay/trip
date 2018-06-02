@@ -5,14 +5,19 @@
     "lng": 151.21222767700192,
     "title": "Redfern",
     "fullAddress": "Redfern NSW, Australia",
-    "showDirection": true,
     "travelMode": "DRIVING"
   }, {
     "lat": -33.87,
     "lng": 151.25,
     "title": "Point Piper",
     "fullAddress": "Point Piper NSW, Australia",
-    "showDirection": true,
     "travelMode": "DRIVING"
-  }]
+  }, {
+    "lat": -33.92151815777611,
+    "lng": 151.59770684605837,
+    "title": "Stop 3",
+    "fullAddress": "Australia",
+    "travelMode": "FLYING"
+  }
+  ]
 }

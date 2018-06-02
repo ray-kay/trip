@@ -25,6 +25,7 @@ import { ButtonTravelModeComponent } from './button-travel-mode/button-travel-mo
 import { MapDestinationPanelComponent } from './map-destination-panel/map-destination-panel.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { DestinationsAltDirectionPipe } from './map/destinations-alt-direction.pipe';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { SharedModule } from '../shared/shared.module';
   entryComponents: [],
   declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent, DestinationListComponent,
     ButtonTravelModeComponent,
-    MapDestinationPanelComponent],
+    MapDestinationPanelComponent,
+    DestinationsAltDirectionPipe],
   bootstrap: [],
 })
 export class TripModule {

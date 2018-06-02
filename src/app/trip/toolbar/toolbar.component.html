@@ -4,7 +4,7 @@
     aria-label="Toggle sidenav"
     mat-icon-button
     (click)="sideNav.toggle()"
-    *ngIf="(isHandset | async)!.matches">
+    *ngIf="!sideNav.opened">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <span *ngIf="trip">{{trip.title + ' (' + trip.destinations.length+' stops)'}}</span>

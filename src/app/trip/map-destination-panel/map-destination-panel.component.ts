@@ -13,6 +13,7 @@ export class MapDestinationPanelComponent implements OnInit {
   newDestination = false;
   destinationIndex: number;
   destination: Destination;
+  expanded = true;
 
   constructor(private tripService: TripService) { }
 

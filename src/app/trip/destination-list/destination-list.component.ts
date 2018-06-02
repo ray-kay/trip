@@ -6,7 +6,7 @@ import {MatListOption} from '@angular/material';
 @Component({
   selector: 'app-trip-destination-list',
   templateUrl: './destination-list.component.html',
-  styleUrls: ['./destination-list.component.less']
+  styleUrls: ['./destination-list.component.scss']
 })
 export class DestinationListComponent implements OnInit {
   trip: Trip;

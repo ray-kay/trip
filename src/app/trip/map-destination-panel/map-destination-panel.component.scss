@@ -3,6 +3,28 @@
   bottom: 0px;
   width: 100%;
 
+  .destination-marker {
+    background: url("./../../../assets/images/map/destination-marker.png") no-repeat;
+    background-size: contain;
+    width: 17px;
+    height: 28px;
+    font-size: 12px;
+    padding-top: 3px;
+    text-align: center;
+    font-weight: lighter;
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  .mat-expansion-panel.mat-expanded {
+    .destination-marker {
+      margin-top: 16px;
+    }
+    .trip-mat-expansion-panel-content {
+      padding-left: 26px;
+    }
+  }
+
   .mat-primary, .mat-warn {
     float: right;
   }

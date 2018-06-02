@@ -1,4 +1,7 @@
-<mat-spinner *ngIf="!mapReady"></mat-spinner>
+<div class="app-mat-spinner-container" *ngIf="!mapReady">
+  <mat-spinner></mat-spinner>
+</div>
+
 <ngui-map *ngIf="trip" [center]="center" (click)="clickOnMap($event)" (mapReady$)="onMapReady($event)">
   <marker *ngIf="marker" [position]="{lat: marker.lat, lng: marker.lng}" [draggable]="true"
           (dragend)="markerDragEnd($event)"></marker>
@@ -23,5 +26,14 @@
                          [directions-request]="destination.directionsRequest"
                          (directionsFailed)="onDirectionError($event, destination)">
     </directions-renderer>
+
+    <polyline *ngFor="let destination of (trip.destinations | destinationsAltDirection: mapReady)"
+              [path]="destination.path"
+              [geodesic]="true"
+              [strokeColor]="destination.color"
+              [icons]="destination.icons"
+              [strokeOpacity]="destination.opacity"
+              [strokeWeight]="4">
+    </polyline>
   </div>
 </ngui-map>

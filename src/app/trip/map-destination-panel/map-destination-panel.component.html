@@ -1,26 +1,33 @@
 <mat-accordion *ngIf="destination">
-  <mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel [expanded]="expanded" (expandedChange)="expanded = $event">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title *ngIf="!expanded">
+        <span class="destination-marker" title="{{ destination.title }}">{{ destinationIndex + 1 }}</span>
+        {{ destination.title }}
+      </mat-panel-title>
+      <mat-panel-title *ngIf="expanded" (click)="$event.stopImmediatePropagation()">
+        <span class="destination-marker" title="{{ destination.title }}">{{ destinationIndex + 1 }}</span>
         <mat-form-field>
-          <input type="text" name="title" matInput placeholder="Title" [(ngModel)]="destination.title" required>
+          <input type="text" name="title" matInput placeholder="Title" [(ngModel)]="destination.title" required (keydown)="$event.stopImmediatePropagation()">
           <mat-icon matSuffix>mode_edit</mat-icon>
         </mat-form-field>
       </mat-panel-title>
       <mat-panel-description>{{ destination.fullAddress }}</mat-panel-description>
     </mat-expansion-panel-header>
 
-    <span *ngIf="destinationIndex === 0">This is where you start</span>
-    <app-trip-button-travel-mode *ngIf="newDestination || destinationIndex > 0" (change)="destination.travelMode = $event" [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
-    <button mat-icon-button *ngIf="!newDestination && destinationIndex > 0" (click)="changeDestinationOrder(destinationIndex - 1)">
-      <mat-icon aria-label="Move prev">navigate_before</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="!newDestination && destinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationOrder(destinationIndex + 1)">
-      <mat-icon aria-label="Move next">navigate_next</mat-icon>
-    </button>
+    <div class="trip-mat-expansion-panel-content">
+      <span *ngIf="destinationIndex === 0">This is where you start</span>
+      <app-trip-button-travel-mode *ngIf="newDestination || destinationIndex > 0" (change)="destination.travelMode = $event" [travelModeValue]="destination.travelMode"></app-trip-button-travel-mode>
+      <button mat-icon-button *ngIf="!newDestination && destinationIndex > 0" (click)="changeDestinationOrder(destinationIndex - 1)">
+        <mat-icon aria-label="Move prev">navigate_before</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="!newDestination && destinationIndex < (trip.destinations.length - 1)" (click)="changeDestinationOrder(destinationIndex + 1)">
+        <mat-icon aria-label="Move next">navigate_next</mat-icon>
+      </button>
 
-    <button mat-raised-button color="primary" (click)="saveDestination()">Save</button>
-    <button *ngIf="!newDestination" mat-button color="warn" (click)="removeDestination()">Remove</button>
+      <button mat-raised-button color="primary" (click)="saveDestination()">Save</button>
+      <button *ngIf="!newDestination" mat-button color="warn" (click)="removeDestination()">Remove</button>
+    </div>
 
   </mat-expansion-panel>
 </mat-accordion>

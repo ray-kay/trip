@@ -5,7 +5,7 @@
     [attr.role]="isHandset ? 'dialog' : 'navigation'"
     [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
     [opened]="!(isHandset | async)!.matches">
-    <app-trip-side-nav></app-trip-side-nav>
+    <app-trip-side-nav [sideNav]="sideNav"></app-trip-side-nav>
   </mat-sidenav>
 
   <mat-sidenav-content>
