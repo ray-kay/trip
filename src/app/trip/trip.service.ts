@@ -18,6 +18,7 @@ export class TripService {
   private destinationChangeInProgress = false;
 
   @Output() tripLoaded: EventEmitter<Trip> = new EventEmitter();
+  @Output() mapReady: EventEmitter<void> = new EventEmitter();
   @Output() destinationSelected: EventEmitter<number> = new EventEmitter();
   @Output() destinationAdded: EventEmitter<Destination> = new EventEmitter();
   @Output() destinationDeleted: EventEmitter<number> = new EventEmitter();

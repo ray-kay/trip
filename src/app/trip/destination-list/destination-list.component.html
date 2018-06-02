@@ -1,5 +1,5 @@
 <mat-selection-list *ngIf="trip" role="listbox" (selectionChange)="destinationSelected($event.option)">
-  <h3 matSubheader>Stops</h3>
+  <!--<h3 matSubheader>Stops</h3>-->
   <mat-list-option *ngFor="let destination of trip.destinations; let i = index" [value]="i"
                    [selected]="i === activeDestinationIndex">
     <h3 matLine>

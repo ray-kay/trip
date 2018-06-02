@@ -1,5 +1,8 @@
 {
   "title": "My new trip",
+  "config": {
+    "sideNavOpened": false
+  },
   "destinations": [{
     "lat": -33.89440625978433,
     "lng": 151.21222767700192,

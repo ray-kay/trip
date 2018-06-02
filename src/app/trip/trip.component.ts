@@ -11,12 +11,16 @@ import {TripService} from './trip.service';
 })
 export class TripComponent implements OnInit {
 
+  sideNavOpened = false;
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   constructor(private tripService: TripService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
     this.tripService.loadTrip()
-      .subscribe((trip: Trip) => console.log('Trip loaded', trip));
+      .subscribe((trip: Trip) => {
+        console.log('Trip loaded', trip);
+        this.sideNavOpened = trip.config.sideNavOpened;
+      });
   }
 
 }

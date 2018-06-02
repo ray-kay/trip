@@ -4,7 +4,7 @@
     fixedInViewport="true"
     [attr.role]="isHandset ? 'dialog' : 'navigation'"
     [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
-    [opened]="!(isHandset | async)!.matches">
+    [opened]="sideNavOpened">
     <app-trip-side-nav [sideNav]="sideNav"></app-trip-side-nav>
   </mat-sidenav>
 

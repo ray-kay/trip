@@ -26,7 +26,7 @@
     "@angular/pwa": "^0.6.1",
     "@angular/router": "^6.0.3",
     "@angular/service-worker": "^6.0.3",
-    "@ngui/map": "^0.30.0",
+    "@ngui/map": "git://github.com/ray-kay/map.git#catch_directions_failed",
     "@types/googlemaps": "^3.30.8",
     "core-js": "^2.5.4",
     "rxjs": "^6.2.0",

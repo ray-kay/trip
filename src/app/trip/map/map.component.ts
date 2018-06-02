@@ -67,6 +67,7 @@ export class MapComponent implements OnInit {
     this.map = map;
     this.mapReady = true;
     this.geocoder = new google.maps.Geocoder();
+    this.tripService.mapReady.emit();
   }
 
   destinationMarkerInit(marker, index: number) {

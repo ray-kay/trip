@@ -10,6 +10,8 @@ import {TripService} from '../trip.service';
 })
 export class ToolbarComponent implements OnInit {
   trip: Trip;
+  searchValue: string;
+  mapReady = false;
   @Input() sideNav: MatSidenav;
   constructor(private tripService: TripService) {}
 
@@ -17,5 +19,13 @@ export class ToolbarComponent implements OnInit {
     this.tripService.tripLoaded.subscribe( (trip: Trip) => {
       this.trip = trip;
     });
+    this.tripService.mapReady.subscribe( () => {
+      this.mapReady = true;
+    });
+  }
+
+  autoCompleteResult(place: google.maps.places.PlaceResult) {
+    this.tripService.addMapMarkerFromPlace(place);
+    this.searchValue = null;
   }
 }
