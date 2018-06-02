@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Trip} from '../../shared/model/trip';
 import {MatSidenav} from '@angular/material';
 import {TripService} from '../trip.service';
+import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-trip-toolbar',
@@ -13,7 +15,9 @@ export class ToolbarComponent implements OnInit {
   searchValue: string;
   mapReady = false;
   @Input() sideNav: MatSidenav;
-  constructor(private tripService: TripService) {}
+  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+
+  constructor(private tripService: TripService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
     this.tripService.tripLoaded.subscribe( (trip: Trip) => {

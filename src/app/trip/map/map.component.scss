@@ -1,5 +1,5 @@
 .app-mat-spinner-container {
-  height: calc(100vh - 64px); // TODO 56px for mobile
+  height: calc(100vh - 64px);
 
   .mat-spinner {
     position: relative;
@@ -9,7 +9,7 @@
 }
 
 ngui-map {
-  height: calc(100vh - 64px); // TODO 56px for mobile
+  height: calc(100vh - 64px);
 
   .destination-marker {
     cursor: pointer;
@@ -24,5 +24,11 @@ ngui-map {
     font-size: 16px;
     padding-top: 6px;
     text-align: center;
+  }
+}
+
+@media (max-width: 599px) {
+  .app-mat-spinner-container, ngui-map  {
+    height: calc(100vh - 56px);
   }
 }
