@@ -9,7 +9,8 @@
   </button>
   <span *ngIf="trip && !(isHandset | async)!.matches">{{trip.title + ' (' + trip.destinations.length+' stops)'}}</span>
   <mat-form-field class="search-form-field" *ngIf="mapReady">
-    <input matInput placeholder="Where is your next stop?" [(ngModel)]="searchValue" places-auto-complete
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput [(ngModel)]="searchValue" places-auto-complete
            [types]="['geocode']" (place_changed)="autoCompleteResult($event)">
   </mat-form-field>
 </mat-toolbar>

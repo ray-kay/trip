@@ -72,13 +72,13 @@ export class MapComponent implements OnInit {
 
   destinationMarkerInit(marker, index: number) {
     this.destinationMarkers[index] = marker;
-/*
+
     if (this.trip.destinations.length > 0 && index === (this.trip.destinations.length - 1)) {
       const self = this;
       window.setTimeout(function () { // TODO not perfect
         self.map.fitBounds(self.getBounds());
-      }, 3000);
-    }*/
+      }, 4000);
+    }
   }
 
   clickOnMap(event) {

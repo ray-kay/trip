@@ -25,7 +25,7 @@
         <mat-icon aria-label="Move next">navigate_next</mat-icon>
       </button>
 
-      <button mat-raised-button color="primary" (click)="saveDestination()">{{ destinationIndex ? 'Save' : 'Add' }}</button>
+      <button mat-raised-button color="primary" (click)="saveDestination()">{{ destinationIndex || destinationIndex === 0 ? 'Save' : 'Add' }}</button>
       <button *ngIf="!newDestination" mat-button color="warn" (click)="removeDestination()">Remove</button>
     </div>
 
