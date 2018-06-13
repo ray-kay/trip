@@ -7,7 +7,10 @@
     *ngIf="!sideNav.opened">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
-  <span *ngIf="trip && !(isHandset | async)!.matches">{{trip.title + ' (' + trip.destinations.length+' stops)'}}</span>
+  <p *ngIf="trip && !(isHandset | async)!.matches">
+    {{ trip.title }}
+    <span class="mat-small">({{ trip.destinations.length }} stops)</span>
+  </p>
   <mat-form-field class="search-form-field" *ngIf="mapReady">
     <mat-icon matPrefix>search</mat-icon>
     <input matInput [(ngModel)]="searchValue" places-auto-complete

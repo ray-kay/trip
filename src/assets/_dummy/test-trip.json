@@ -8,171 +8,11 @@
       "lat": 10.8230989,
       "lng": 106.6296638,
       "title": "Ho Chi Minh City",
-      "fullAddress": "Ho Chi Minh City, Vietna",
-      "travelMode": "DRIVING",
+      "fullAddress": "Ho Chi Minh City, Vietnam",
+      "travelMode": "FLYING",
       "directionsRequest": null,
       "icons": [],
       "opacity": 0.8
-    },
-    {
-      "lat": 11.5563738,
-      "lng": 104.92820989999996,
-      "title": "Phnom Penh",
-      "travelMode": "FLYING",
-      "fullAddress": "Phnom Penh, Cambodia",
-      "placeResult": {
-        "address_components": [
-          {
-            "long_name": "Phnom Penh",
-            "short_name": "PP",
-            "types": [
-              "locality",
-              "political"
-            ]
-          },
-          {
-            "long_name": "Phnom Penh",
-            "short_name": "Phnom Penh",
-            "types": [
-              "administrative_area_level_1",
-              "political"
-            ]
-          },
-          {
-            "long_name": "Cambodia",
-            "short_name": "KH",
-            "types": [
-              "country",
-              "political"
-            ]
-          }
-        ],
-        "adr_address": "<span class=\"locality\">Phnom Penh</span>, <span class=\"country-name\">Cambodia</span>",
-        "formatted_address": "Phnom Penh, Cambodia",
-        "geometry": {
-          "location": {
-            "lat": 11.5563738,
-            "lng": 104.92820989999996
-          },
-          "viewport": {
-            "south": 11.422401,
-            "west": 104.71279609999999,
-            "north": 11.7363275,
-            "east": 105.0675774
-          }
-        },
-        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
-        "id": "ec63c0cb5d16aa0f8e64dd05b9030d91cc682976",
-        "name": "Phnom Penh",
-        "photos": [
-          {
-            "height": 636,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/109479006380264805219/photos\">yang ling</a>"
-            ],
-            "width": 960
-          },
-          {
-            "height": 4000,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/108080731729659222141/photos\">Thái Nguyên Phan Huy</a>"
-            ],
-            "width": 6000
-          },
-          {
-            "height": 1512,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/107515584349499833414/photos\">吉易</a>"
-            ],
-            "width": 2689
-          },
-          {
-            "height": 2448,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/112507573828732023472/photos\">About Cambodia Services</a>"
-            ],
-            "width": 3264
-          },
-          {
-            "height": 3072,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/105390068635402583710/photos\">Kimneou Long</a>"
-            ],
-            "width": 4608
-          },
-          {
-            "height": 2322,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/111884747365503637611/photos\">Sukit Khamtit</a>"
-            ],
-            "width": 4128
-          },
-          {
-            "height": 2304,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/106932872330319567294/photos\">Arjit Garg</a>"
-            ],
-            "width": 4096
-          },
-          {
-            "height": 2988,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/105138645602709040702/photos\">Ugo Ballois</a>"
-            ],
-            "width": 5312
-          },
-          {
-            "height": 2322,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/111036079736182571886/photos\">大寺千喜</a>"
-            ],
-            "width": 4128
-          },
-          {
-            "height": 1365,
-            "html_attributions": [
-              "<a href=\"https://maps.google.com/maps/contrib/105540880157878187422/photos\">Nou</a>"
-            ],
-            "width": 2048
-          }
-        ],
-        "place_id": "ChIJ42tqxz1RCTERuyW1WugOAZw",
-        "reference": "CmRbAAAAa0UQJbjFyYPEHpx5j9X83vGld9TR-NSPTqL3Ne29AqtH3Vr-hGzhqKLVdOcc5z2m-9cqovwWSFayP7bXYJQ70-4Mh1y-rG7Q_75jfjvSzLrYJDCLm1SNvi7SWhaocTexEhD4sGVYOgwN3G0FpQrehxP9GhS8yC1QxcjbNqY0h9Ncjec9qSreZA",
-        "scope": "GOOGLE",
-        "types": [
-          "locality",
-          "political"
-        ],
-        "url": "https://maps.google.com/?q=Phnom+Penh,+Cambodia&ftid=0x3109513dc76a6be3:0x9c010ee85ab525bb",
-        "utc_offset": 420,
-        "vicinity": "Phnom Penh",
-        "html_attributions": []
-      },
-      "directionsRequest": null,
-      "icons": [
-        {
-          "icon": {
-            "path": "M 0,-2 0,0.5",
-            "strokeOpacity": 0.8,
-            "strokeWeight": 2,
-            "scale": 4
-          },
-          "offset": "0",
-          "repeat": "30px"
-        }
-      ],
-      "opacity": 0,
-      "color": "#740015",
-      "path": [
-        {
-          "lat": 10.8230989,
-          "lng": 106.6296638
-        },
-        {
-          "lat": 11.5563738,
-          "lng": 104.92820989999996
-        }
-      ]
     },
     {
       "lat": 13.3550091,
@@ -1615,7 +1455,7 @@
     {
       "lat": -8.670458199999999,
       "lng": 115.2126293,
-      "title": "Denpasar",
+      "title": "Bali",
       "travelMode": "FLYING",
       "fullAddress": "Denpasar, Denpasar City, Bali, Indonesia",
       "placeResult": {

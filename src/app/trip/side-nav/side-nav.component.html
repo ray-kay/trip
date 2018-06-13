@@ -17,3 +17,7 @@
 </mat-form-field>-->
 
 <app-trip-destination-list></app-trip-destination-list>
+
+<button mat-raised-button color="primary" (click)="saveTrip()">Save Trip</button>
+<br>
+<code *ngIf="showSaveOutput">{{ trip | json }}</code>

@@ -14,6 +14,7 @@ export class SideNavComponent implements OnInit {
   @Input() sideNav: MatSidenav;
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   trip: Trip;
+  showSaveOutput = false;
   constructor(private tripService: TripService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
@@ -22,7 +23,12 @@ export class SideNavComponent implements OnInit {
     });
   }
 
-  autoCompleteResult(place: google.maps.places.PlaceResult) {
+  /*autoCompleteResult(place: google.maps.places.PlaceResult) {
     this.tripService.addMapMarkerFromPlace(place);
+  }*/
+
+  saveTrip() {
+    console.log(this.trip);
+    this.showSaveOutput = true;
   }
 }

@@ -1,25 +1,34 @@
-.mat-list-option {
-  &[aria-selected="true"] {
-    background: rgba(0,0,0,.08);
-  }
+.mat-selection-list {
+  padding-top: 0;
 
-  .mat-pseudo-checkbox {
-    display: none !important;
-  }
+  .mat-list-option {
+    &[aria-selected="true"] {
+      background: rgba(0, 0, 0, .08);
+    }
 
-  .destination-marker {
-    background: url("./../../../assets/images/map/destination-marker.png") no-repeat;
-    background-size: contain;
-    width: 17px;
-    height: 28px;
-    font-size: 12px;
-    padding-top: 3px;
-    text-align: center;
-    font-weight: lighter;
-    display: inline-block;
-  }
-}
+    .mat-pseudo-checkbox {
+      display: none !important;
+    }
 
-.mat-pseudo-checkbox {
-  display: none !important;
+    .destination-marker {
+      background: url("./../../../assets/images/map/destination-marker.png") no-repeat;
+      background-size: contain;
+      width: 17px;
+      height: 28px;
+      font-size: 12px;
+      padding-top: 2px;
+      text-align: center;
+      font-weight: lighter;
+      display: inline-block;
+      color: #ffffff;
+    }
+
+    .travel-mode-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      position: absolute;
+      right: 10px;
+    }
+  }
 }

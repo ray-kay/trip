@@ -9,11 +9,12 @@
     width: 17px;
     height: 28px;
     font-size: 12px;
-    padding-top: 3px;
+    padding-top: 2px;
     text-align: center;
     font-weight: lighter;
     display: inline-block;
     margin-right: 8px;
+    color: #ffffff;
   }
 
   .mat-expansion-panel.mat-expanded {
@@ -21,8 +22,14 @@
       margin-top: 16px;
     }
     .trip-mat-expansion-panel-content.has-marker {
-      padding-left: 26px;
+      @media (min-width: 960px) {
+        padding-left: 26px;
+      }
     }
+  }
+
+  .mat-expansion-panel-header {
+    padding-top: 5px;
   }
 
   .mat-primary, .mat-warn {

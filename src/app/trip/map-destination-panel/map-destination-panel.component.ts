@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {TripService} from '../trip.service';
 import {Destination} from '../../shared/model/destination';
 import {Trip} from '../../shared/model/trip';
+import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-trip-map-destination-panel',
@@ -9,13 +11,14 @@ import {Trip} from '../../shared/model/trip';
   styleUrls: ['./map-destination-panel.component.scss']
 })
 export class MapDestinationPanelComponent implements OnInit {
+  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   trip: Trip;
   newDestination = false;
   destinationIndex: number;
   destination: Destination;
   expanded = true;
 
-  constructor(private tripService: TripService) { }
+  constructor(private tripService: TripService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     this.tripService.tripLoaded.subscribe( (trip: Trip) => {

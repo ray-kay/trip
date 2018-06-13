@@ -2,17 +2,17 @@
   <mat-expansion-panel [expanded]="expanded" (expandedChange)="expanded = $event">
     <mat-expansion-panel-header>
       <mat-panel-title *ngIf="!expanded">
-        <span class="destination-marker" title="{{ destination.title }}" *ngIf="destinationIndex">{{ destinationIndex + 1 }}</span>
+        <span class="destination-marker" title="{{ destination.title }}" *ngIf="destinationIndex || destinationIndex === 0">{{ destinationIndex + 1 }}</span>
         {{ destination.title }}
       </mat-panel-title>
       <mat-panel-title *ngIf="expanded" (click)="$event.stopImmediatePropagation()">
-        <span class="destination-marker" title="{{ destination.title }}" *ngIf="destinationIndex">{{ destinationIndex + 1 }}</span>
+        <span class="destination-marker" title="{{ destination.title }}" *ngIf="destinationIndex || destinationIndex === 0">{{ destinationIndex + 1 }}</span>
         <mat-form-field>
           <input type="text" name="title" matInput placeholder="Title" [(ngModel)]="destination.title" required (keydown)="$event.stopImmediatePropagation()">
           <mat-icon matSuffix>mode_edit</mat-icon>
         </mat-form-field>
       </mat-panel-title>
-      <mat-panel-description>{{ destination.fullAddress }}</mat-panel-description>
+      <mat-panel-description *ngIf="!expanded || !(isHandset | async)!.matches">{{ destination.fullAddress }}</mat-panel-description>
     </mat-expansion-panel-header>
 
     <div class="trip-mat-expansion-panel-content" [class.has-marker]="destinationIndex">
