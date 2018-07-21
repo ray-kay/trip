@@ -7,6 +7,8 @@ import {DestinationsDirectionPipe} from './map/destinations-direction.pipe';
 import {NguiMapModule} from '@ngui/map/dist';
 import {SideNavComponent} from './side-nav/side-nav.component';
 import {LayoutModule} from '@angular/cdk/layout';
+import {DragDropModule} from '@angular/cdk-experimental/drag-drop';
+
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -41,7 +43,8 @@ import { TravelModeToIconPipe } from './travel-mode-to-icon.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatButtonToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    DragDropModule
   ],
   entryComponents: [],
   declarations: [TripComponent, DestinationsDirectionPipe, SideNavComponent, MapComponent, ToolbarComponent, DestinationListComponent,

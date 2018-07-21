@@ -1,14 +1,14 @@
-<mat-selection-list *ngIf="trip" role="listbox" (selectionChange)="destinationSelected($event.option)" [disableRipple]="true">
-  <!--<h3 matSubheader>Stops</h3>-->
-  <mat-list-option *ngFor="let destination of trip.destinations; let i = index" [value]="i"
-                   [selected]="i === activeDestinationIndex">
-    <h3 matLine>
-      <span class="destination-marker" title="{{ destination.title }}">{{ i + 1 }}</span>
-      {{ destination.title }}
-      <mat-icon class="travel-mode-icon" matListIcon>{{destination.travelMode | travelModeToIcon}}</mat-icon>
-    </h3>
-    <p matLine *ngIf="destination.fullAddress">{{ destination.fullAddress }}</p>
-  </mat-list-option>
-  <mat-divider></mat-divider>
-  <h3 matSubheader>Notes</h3>
+<mat-selection-list *ngIf="trip" role="listbox" (selectionChange)="destinationSelected($event.option)"
+                    [disableRipple]="true" dropzone="move">
+  <cdk-drop (dropped)="destinationDropped($event)">
+    <mat-list-option *ngFor="let destination of trip.destinations; let i = index" [value]="i"
+                     [selected]="i === activeDestinationIndex" cdkDrag>
+      <h3 matLine>
+        <span class="destination-marker" title="{{ destination.title }}">{{ i + 1 }}</span>
+        {{ destination.title }}
+        <mat-icon class="travel-mode-icon" matListIcon>{{destination.travelMode | travelModeToIcon}}</mat-icon>
+      </h3>
+      <p matLine *ngIf="destination.fullAddress">{{ destination.fullAddress }}</p>
+    </mat-list-option>
+  </cdk-drop>
 </mat-selection-list>
