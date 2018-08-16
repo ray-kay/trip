@@ -23,10 +23,6 @@ export class SideNavComponent implements OnInit {
     });
   }
 
-  /*autoCompleteResult(place: google.maps.places.PlaceResult) {
-    this.tripService.addMapMarkerFromPlace(place);
-  }*/
-
   saveTrip() {
     console.log(this.trip);
     this.showSaveOutput = true;

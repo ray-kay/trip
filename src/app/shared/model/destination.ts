@@ -7,7 +7,7 @@ export class Destination {
   travelMode?: DestinationTravelMode;
   directionOptions?: google.maps.DirectionsRendererOptions;
   geocoderResult?: google.maps.GeocoderResult;
-  placeResult?: google.maps.places.PlaceResult;
+  placeResult?: PlaceResult;
 }
 
 export enum DestinationTravelMode {
@@ -18,4 +18,10 @@ export enum DestinationTravelMode {
   BOAT = 'BOAT',
   FLYING = 'FLYING',
   NONE = 'NONE'
+}
+
+export class PlaceResult {
+  place_id: string;
+  url?: string;
+  rating?: number;
 }

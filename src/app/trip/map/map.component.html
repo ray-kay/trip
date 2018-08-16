@@ -22,7 +22,7 @@
   <div *ngIf="mapReady">
     <directions-renderer *ngFor="let destination of (trip.destinations | destinationsDirection: mapReady)"
                          [suppressMarkers]="true"
-                         [draggable]="true"
+                         [draggable]="true" (directions_result)="onDirectionsResult($event, destination)"
                          [directions-request]="destination.directionsRequest"
                          (directionsFailed)="onDirectionError($event, destination)">
     </directions-renderer>

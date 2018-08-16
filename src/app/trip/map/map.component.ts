@@ -128,9 +128,13 @@ export class MapComponent implements OnInit {
       }
     }
     destination.travelMode = DestinationTravelMode.NONE;
-    if(index !== null) {
+    if (index !== null) {
       this.tripService.updateDestination(index, destination);
     }
+  }
+
+  onDirectionsResult(result: google.maps.DirectionsResult, destination: Destination) {
+    console.log('direction response', result.routes[0], destination);
   }
 
   private resetCurrentMarker() {

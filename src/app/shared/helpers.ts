@@ -39,7 +39,11 @@ export class Helpers {
   static setPlaceResultToDestination(result: google.maps.places.PlaceResult, destination: Destination): Destination {
     destination.fullAddress = result.formatted_address;
     destination.title = result.name;
-    destination.placeResult = result;
+    destination.placeResult = {
+      place_id: result.place_id,
+      url: result.url,
+      rating: result.rating || null
+    };
     return destination;
   }
 }

@@ -8,7 +8,9 @@ import { Destination, DestinationTravelMode} from '../../shared/model/destinatio
 export class DestinationsAltDirectionPipe implements PipeTransform {
 
   transform(destinations: Destination[], googleLoaded?: boolean): any[] {
-    return googleLoaded ? destinations.filter(function (destination: any, index: number, array: Destination[]): boolean {
+    // we clone them here otherwise it would manipulate the items by adding new attributes like icons, opacity
+    const tempDestinations = destinations.slice(0);
+    return googleLoaded ? tempDestinations.filter(function (destination: any, index: number, array: Destination[]): boolean {
       if (index > 0) {
         destination.icons = [];
         destination.opacity = 0.8;

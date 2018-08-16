@@ -5,6 +5,13 @@
 /tmp
 /out-tsc
 
+# Node #
+*.log
+/npm-debug.log.*
+
+# Webpack #
+webpack.records.json
+
 # dependencies
 /node_modules
 
@@ -37,3 +44,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Angular #
+*.ngfactory.ts
+*.css.shim.ts
+*.ngsummary.json
+*.metadata.json
+*.shim.ngstyle.ts
